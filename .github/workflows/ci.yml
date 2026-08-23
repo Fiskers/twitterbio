@@ -23,4 +23,9 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      - name: Build
+        env:
+          # The SDK validates presence while Next.js collects route metadata.
+          # Runtime deployments must provide the real secret separately.
+          TOGETHER_API_KEY: ci-build-placeholder
+        run: pnpm build
